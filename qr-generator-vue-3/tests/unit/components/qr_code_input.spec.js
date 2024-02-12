@@ -1,6 +1,7 @@
-import { shallowMount } from "@vue/test-utils"
+import { shallowMount } from '@vue/test-utils'
 
-import QRCodeInputVue from "@/components/QRCodeInput.vue"
+import QRCodeInputVue from '@/components/QRCodeInput.vue'
+import { createStore } from 'vuex'
 
 describe('QRCodeInput.vue', () => {
   describe('mounting a component', () => {
@@ -12,20 +13,26 @@ describe('QRCodeInput.vue', () => {
       expect(component.classes()).toContain('hello')
     })
   })
-
-  describe('render qr code input component with its dependencies', () => {
+  describe('mounting a component with its dependencies', () => {
     const store = createStore({
-      state() {
-        return {count: 1}
+      state () {
+        return {
+          count: 1
+        }
       }
     })
 
     const wrapper = shallowMount(QRCodeInputVue,
       {
         global: {
-          plugin: {store}
+          plugins: [store]
         }
-      }
-    )
+      })
+
+    it('renders generate qr code button with text', () => {
+      const component = wrapper.find('#btn-generate')
+
+      expect(component.text()).toBe('Generar QR')
+    })
   })
 })

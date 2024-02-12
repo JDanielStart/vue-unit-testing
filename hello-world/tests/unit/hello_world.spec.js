@@ -11,5 +11,9 @@ describe('HelloWorld.vue', () => {
 
     //Comprobamos que exista
     expect(component.classes()).toContain('hello')
+    expect(wrapper.vm.counter).toBe(0)
+
+    wrapper.vm.increment()
+    expect(wrapper.vm.counter).toBe(1)
   })
 })

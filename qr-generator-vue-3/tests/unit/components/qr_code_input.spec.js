@@ -1,12 +1,12 @@
 import { shallowMount } from '@vue/test-utils'
 
-import QRCodeInputVue from '@/components/QRCodeInput.vue'
+import QRCodeInput from '@/components/QRCodeInput.vue'
 import { createStore } from 'vuex'
 
 describe('QRCodeInput.vue', () => {
   describe('mounting a component', () => {
     it('renderds qr code input component', () => {
-      const wrapper = shallowMount(QRCodeInputVue)
+      const wrapper = shallowMount(QRCodeInput)
 
       const component = wrapper.find('.hello')
 
@@ -22,17 +22,26 @@ describe('QRCodeInput.vue', () => {
       }
     })
 
-    const wrapper = shallowMount(QRCodeInputVue,
+    const wrapper = shallowMount(QRCodeInput,
       {
         global: {
           plugins: [store]
         }
-      }) //probando
+      })
 
     it('renders generate qr code button with text', () => {
       const component = wrapper.find('#btn-generate')
 
       expect(component.text()).toBe('Generar QR')
+    })
+    it('renders txt input, change value and see if stored', () => {
+      const component = wrapper.find('#txt-qr-code')
+
+      expect(component.element.value).toBe('')
+
+      component.setValue('www.platzi.com')
+
+      expect(wrapper.vm.qrCodeInput).toBe('www.platzi.com')
     })
   })
 })

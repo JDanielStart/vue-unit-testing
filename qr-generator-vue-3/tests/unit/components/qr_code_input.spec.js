@@ -27,7 +27,7 @@ describe('QRCodeInput.vue', () => {
         global: {
           plugins: [store]
         }
-      })
+      }) //probando
 
     it('renders generate qr code button with text', () => {
       const component = wrapper.find('#btn-generate')

@@ -16,4 +16,13 @@ describe('HelloWorld.vue', () => {
     wrapper.vm.increment()
     expect(wrapper.vm.counter).toBe(1)
   })
+  it('button click should increment and it should be rendered', async () => {
+    const wrapper = shallowMount(HelloWorldVue)
+
+    const component = wrapper.find('#but-increment')
+    await component.trigger('click')
+
+    expect(wrapper.find('#header-counter').text()).toBe('counter: 1')
+    expect(wrapper.vm.counter).toBe(1)
+  })
 })
